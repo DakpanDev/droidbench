@@ -1,0 +1,21 @@
+{
+    "profiles": [
+        {
+            "name": "Pixel 8",
+            "coordinates": {
+                "calendar": { "type": "tap", "x": 984, "y": 263 },
+                "calendar_next_day": { "type": "tap", "x": 667, "y": 1644 },
+                "calendar_previous_day": { "type": "tap", "x": 541, "y": 1644 },
+                "calendar_confirm": { "type": "tap", "x": 889, "y": 1900 },
+                "flight_1": { "type": "tap", "x": 512, "y": 596 },
+                "flight_2": { "type": "tap", "x": 512, "y": 852 },
+                "flight_3": { "type": "tap", "x": 512, "y": 1083 },
+                "flight_4": { "type": "tap", "x": 512, "y": 1342 },
+                "details_back": { "type": "tap", "x": 90, "y": 210 },
+                "details_bookmark": { "type": "tap", "x": 986, "y": 210 },
+                "bottombar_bookmarks": { "type": "tap", "x": 810, "y": 2275 },
+                "scroll_down": { "type": "swipe", "x1": 550, "y1": 2146, "x2": 550, "y2": 338 }
+            }
+        }
+    ]
+}
