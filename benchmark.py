@@ -25,13 +25,14 @@ def __open_details(config: BenchmarkConfig):
 
 def __bookmark_flight(config: BenchmarkConfig):
     for _ in range(config.n):
-        bookmark_flight()
+        bookmark_flight(package=config.package, profile=config.profile)
 
 def __load_bookmarks(config: BenchmarkConfig):
     for _ in range(config.n):
-        load_bookmarks()
+        load_bookmarks(package=config.package, profile=config.profile)
 
 def run_benchmark(config: BenchmarkConfig):
+    stop_app(config.package)
     if config.load_flights: __load_flights(config)
     if config.open_details: __open_details(config)
     if config.bookmark_flight: __bookmark_flight(config)

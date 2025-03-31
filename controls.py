@@ -1,7 +1,9 @@
 import os
 
+def stop_app(package: str):
+    os.system(f'adb shell am force-stop {package}')
+
 def start_app(package: str):
-    os.system(f'adb shell am stop-app "{package}"')
     os.system(f'adb shell am start -n "{package}/{package}.MainActivity"')
 
 def tap(coords: dict):

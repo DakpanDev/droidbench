@@ -16,3 +16,5 @@ def execute(package: str, profile: dict):
         # Navigate back
         do_action(actions['details_back'])
         time.sleep(0.75)
+
+    stop_app(package)

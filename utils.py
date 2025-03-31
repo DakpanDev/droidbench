@@ -4,7 +4,7 @@ from benchmark import BenchmarkConfig
 __arguments = {
     'd': None,                          # Device name
     'p': None,                          # Package
-    'n': 1,                             # Iteration amount
+    'n': '1',                             # Iteration amount
     'load_flights': False,              # Do load_flights benchmark
     'open_details': False,              # Do open_details benchmark
     'bookmark_flight': False,           # Do bookmark_flight benchmark
@@ -35,7 +35,7 @@ def create_config(args: dict) -> BenchmarkConfig:
 
     return BenchmarkConfig(
         package=args['p'], 
-        n=args['n'],
+        n=int(args['n']),
         profile=profile,
         load_flights=args['load_flights'] or args['all'],
         open_details=args['open_details'] or args['all'],
