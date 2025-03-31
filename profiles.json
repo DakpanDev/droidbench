@@ -2,10 +2,9 @@
     "profiles": [
         {
             "name": "Pixel 8",
-            "coordinates": {
-                "calendar": { "type": "tap", "x": 984, "y": 263 },
-                "calendar_next_day": { "type": "tap", "x": 667, "y": 1644 },
-                "calendar_previous_day": { "type": "tap", "x": 541, "y": 1644 },
+            "actions": {
+                "calendar": { "type": "tap", "x": 984, "y": 236 },
+                "calendar_random_day": { "type": "tap", "x": 667, "y": 1644 },
                 "calendar_confirm": { "type": "tap", "x": 889, "y": 1900 },
                 "flight_1": { "type": "tap", "x": 512, "y": 596 },
                 "flight_2": { "type": "tap", "x": 512, "y": 852 },
