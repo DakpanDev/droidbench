@@ -1,7 +1,7 @@
-from benchmarks.load_flights import execute as load_flights
-from benchmarks.open_details import execute as open_details
-from benchmarks.bookmark_flight import execute as bookmark_flight
-from benchmarks.load_bookmarks import execute as load_bookmarks
+from workflows.load_flights import execute as load_flights
+from workflows.open_details import execute as open_details
+from workflows.bookmark_flight import execute as bookmark_flight
+from workflows.load_bookmarks import execute as load_bookmarks
 from controls import *
 
 class BenchmarkConfig:
@@ -19,17 +19,20 @@ def __load_flights(config: BenchmarkConfig):
     for _ in range(config.n):
         load_flights(package=config.package, profile=config.profile)
 
-def __open_details(n: int):
-    open_details()
+def __open_details(config: BenchmarkConfig):
+    for _ in range(config.n):
+        open_details(package=config.package, profile=config.profile)
 
-def __bookmark_flight(n: int):
-    bookmark_flight()
+def __bookmark_flight(config: BenchmarkConfig):
+    for _ in range(config.n):
+        bookmark_flight()
 
-def __load_bookmarks(n: int):
-    load_bookmarks()
+def __load_bookmarks(config: BenchmarkConfig):
+    for _ in range(config.n):
+        load_bookmarks()
 
 def run_benchmark(config: BenchmarkConfig):
     if config.load_flights: __load_flights(config)
-    if config.open_details: __open_details(n=config.n)
-    if config.bookmark_flight: __bookmark_flight(n=config.n)
-    if config.load_bookmarks: __load_bookmarks(n=config.n)
+    if config.open_details: __open_details(config)
+    if config.bookmark_flight: __bookmark_flight(config)
+    if config.load_bookmarks: __load_bookmarks(config)
