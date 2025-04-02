@@ -25,5 +25,3 @@ def execute(package: str, profile: dict, measure_startup: bool):
     for _ in range(6): 
         do_action(actions['scroll_down'])
         time.sleep(1)
-
-    stop_app(package)

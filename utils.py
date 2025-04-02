@@ -48,6 +48,7 @@ def create_benchmark_config(args: dict) -> BenchmarkConfig:
         bookmark_flight=args['bookmark_flight'] or args['all'],
         load_bookmarks=args['load_bookmarks'] or args['all'],
         measure_startup=args['startup'],
+        measure_framerate=args['framerate'],
     )
 
 def create_measure_config(args: dict) -> MeasureConfig:
@@ -56,5 +57,4 @@ def create_measure_config(args: dict) -> MeasureConfig:
         measure_cpu=args['cpu'],
         measure_memory=args['memory'],
         measure_battery=args['battery'],
-        measure_framerate=args['framerate'],
     )

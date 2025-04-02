@@ -11,5 +11,3 @@ def execute(package: str, profile: dict, measure_startup: bool):
     # Open bookmarks
     do_action(actions['bottombar_bookmarks'])
     time.sleep(2.5)
-
-    stop_app(package)

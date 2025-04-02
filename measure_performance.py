@@ -7,12 +7,11 @@ __STOP = threading.Event()
 
 class MeasureConfig:
     def __init__(self, package: str, measure_cpu: bool, measure_memory: bool, 
-                 measure_battery: bool, measure_framerate: bool):
+                 measure_battery: bool):
         self.package = package
         self.measure_cpu = measure_cpu
         self.measure_memory = measure_memory
         self.measure_battery = measure_battery
-        self.measure_framerate = measure_framerate
 
 def measure_performance(config: MeasureConfig):
     while not __STOP.is_set():
