@@ -4,7 +4,7 @@ def stop_app(package: str):
     os.system(f'adb shell am force-stop {package}')
 
 def start_app(package: str):
-    os.system(f'adb shell am start -n "{package}/{package}.MainActivity"')
+    os.system(f'adb shell am start -n "{package}/.MainActivity"')
 
 def tap(coords: dict):
     os.system(f'adb shell input tap {coords['x']} {coords['y']}')
