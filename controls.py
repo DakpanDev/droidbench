@@ -1,19 +1,15 @@
 import os
-
-__STARTUP_TIME_INDEX = 1
+import time
+from metrics.startup_time import measure_startup_time
 
 def stop_app(package: str):
     os.popen(f'adb shell am force-stop {package}')
+    time.sleep(1)
 
 def start_app(package: str, measure: bool=False):
-    stream = os.popen(f'adb shell am start {'-W' if measure else ''} -n' +
-                      f'{package}/.MainActivity {'| grep TotalTime' if measure else ''}')
+    stream = os.popen(f'adb shell am start{' -W' if measure else ''} -n {package}/.MainActivity')
     if measure:
-        output = stream.read().split(': ')
-        if len(output) >= __STARTUP_TIME_INDEX + 1:
-            startup_time = output[1].replace('\n', '')
-            # TODO: place into CSV
-            print(f'Startup Time: {startup_time}ms')
+        measure_startup_time(stream)
 
 def tap(coords: dict):
     os.popen(f'adb shell input tap {coords['x']} {coords['y']}')

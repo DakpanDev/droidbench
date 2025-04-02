@@ -3,6 +3,8 @@ import time
 from metrics.cpu_usage import measure_cpu_usage
 from metrics.memory_usage import measure_memory_usage
 
+__STOP = threading.Event()
+
 class MeasureConfig:
     def __init__(self, package: str, measure_cpu: bool, measure_memory: bool, 
                  measure_battery: bool, measure_framerate: bool):
@@ -11,8 +13,6 @@ class MeasureConfig:
         self.measure_memory = measure_memory
         self.measure_battery = measure_battery
         self.measure_framerate = measure_framerate
-
-__STOP = threading.Event()
 
 def measure_performance(config: MeasureConfig):
     while not __STOP.is_set():
