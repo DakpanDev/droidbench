@@ -17,7 +17,7 @@ def measure_performance(config: MeasureConfig):
     while not __STOP.is_set():
         if config.measure_cpu: measure_cpu_usage(config.package)
         if config.measure_memory: measure_memory_usage(config.package)
-        time.sleep(1)
+        time.sleep(2)
 
 def stop_measuring():
     __STOP.set()

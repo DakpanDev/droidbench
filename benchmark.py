@@ -20,28 +20,40 @@ class BenchmarkConfig:
         self.measure_framerate = measure_framerate
 
 def __load_flights(config: BenchmarkConfig):
-    for _ in range(config.n):
+    print('--------LOAD FLIGHTS--------')
+    for iteration in range(config.n):
+        print(f'Iteration {iteration}:')
         load_flights(package=config.package, profile=config.profile, measure_startup=config.measure_startup)
         if config.measure_framerate: measure_framerate(config.package)
         stop_app(config.package)
+        print()
 
 def __open_details(config: BenchmarkConfig):
-    for _ in range(config.n):
+    print('--------OPEN DETAILS--------')
+    for iteration in range(config.n):
+        print(f'Iteration {iteration}:')
         open_details(package=config.package, profile=config.profile, measure_startup=config.measure_startup)
         if config.measure_framerate: measure_framerate(config.package)
         stop_app(config.package)
+        print()
 
 def __bookmark_flight(config: BenchmarkConfig):
-    for _ in range(config.n):
+    print('--------BOOKMARK FLIGHT--------')
+    for iteration in range(config.n):
+        print(f'Iteration {iteration}:')
         bookmark_flight(package=config.package, profile=config.profile, measure_startup=config.measure_startup)
         if config.measure_framerate: measure_framerate(config.package)
         stop_app(config.package)
+        print()
 
 def __load_bookmarks(config: BenchmarkConfig):
-    for _ in range(config.n):
+    print('--------LOAD BOOKMARKS--------')
+    for iteration in range(config.n):
+        print(f'Iteration {iteration}:')
         load_bookmarks(package=config.package, profile=config.profile, measure_startup=config.measure_startup)
         if config.measure_framerate: measure_framerate(config.package)
         stop_app(config.package)
+        print()
 
 def run_benchmark(config: BenchmarkConfig):
     stop_app(config.package)
