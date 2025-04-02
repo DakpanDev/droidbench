@@ -2,12 +2,13 @@ import sys
 import threading
 from benchmark import run_benchmark
 from measure_performance import measure_performance, stop_measuring
-from utils import parse_parameters, create_config
+from utils import parse_parameters, create_benchmark_config, create_measure_config
 
 def main(args: dict):
-    config = create_config(args)
-    measure_process = threading.Thread(target=measure_performance, args=(config.package,))
-    bench_process = threading.Thread(target=run_benchmark, args=(config,))
+    benchmark_config = create_benchmark_config(args)
+    measure_config = create_measure_config(args)
+    bench_process = threading.Thread(target=run_benchmark, args=(benchmark_config,))
+    measure_process = threading.Thread(target=measure_performance, args=(measure_config,))
 
     measure_process.start()
     bench_process.start()

@@ -1,15 +1,21 @@
 import json
 from benchmark import BenchmarkConfig
+from measure_performance import MeasureConfig
 
 __arguments = {
-    'd': None,                          # Device name
-    'p': None,                          # Package
-    'n': '1',                             # Iteration amount
-    'load_flights': False,              # Do load_flights benchmark
-    'open_details': False,              # Do open_details benchmark
-    'bookmark_flight': False,           # Do bookmark_flight benchmark
-    'load_bookmarks': False,            # Do load_bookmarks benchmark
-    'all': False,                       # Do all benchmarks
+    'd': None,                  # Device name
+    'p': None,                  # Package
+    'n': '1',                   # Iteration amount
+    'load_flights': False,      # Do load_flights benchmark
+    'open_details': False,      # Do open_details benchmark
+    'bookmark_flight': False,   # Do bookmark_flight benchmark
+    'load_bookmarks': False,    # Do load_bookmarks benchmark
+    'all': False,               # Do all benchmarks
+    'cpu': False,               # Measure CPU usage
+    'memory': False,            # Measure memory usage
+    'battery': False,           # Measure battery drain
+    'framerate': False,         # Measure framerate
+    'startup': False,           # Measure startup time
 }
 
 def parse_parameters(args: list[str]) -> dict:
@@ -28,7 +34,7 @@ def get_profile(profiles: list, name: str) -> dict:
         if profile['name'] == name:
             return profile
 
-def create_config(args: dict) -> BenchmarkConfig:
+def create_benchmark_config(args: dict) -> BenchmarkConfig:
     with open('profiles.json', 'r') as file:
         profiles = json.load(file)['profiles']
         profile = get_profile(profiles, args['d'])
@@ -41,4 +47,14 @@ def create_config(args: dict) -> BenchmarkConfig:
         open_details=args['open_details'] or args['all'],
         bookmark_flight=args['bookmark_flight'] or args['all'],
         load_bookmarks=args['load_bookmarks'] or args['all'],
+    )
+
+def create_measure_config(args: dict) -> MeasureConfig:
+    return MeasureConfig(
+        package=args['p'],
+        measure_cpu=args['cpu'],
+        measure_memory=args['memory'],
+        measure_battery=args['battery'],
+        measure_framerate=args['framerate'],
+        measure_startup=args['startup'],
     )

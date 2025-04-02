@@ -13,4 +13,5 @@ def measure_cpu_usage(package: str):
         res_values = res_values[1:]
 
     if len(res_values) >= __CPU_INDEX + 1:
+        # TODO: place into CSV
         print(f'CPU Usage (%): {res_values[__CPU_INDEX]}')
