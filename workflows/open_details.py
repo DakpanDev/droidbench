@@ -1,11 +1,11 @@
 import time
 from controls import *
 
-def execute(package: str, profile: dict):
+def execute(package: str, profile: dict, measure_startup: bool):
     actions = profile['actions']
 
     # Open app
-    start_app(package)
+    start_app(package=package, measure=measure_startup)
     time.sleep(5)
 
     for n in range(4):

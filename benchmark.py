@@ -6,7 +6,8 @@ from controls import *
 
 class BenchmarkConfig:
     def __init__(self, package: str, n: int, profile: dict, load_flights: bool, 
-                 open_details: bool, bookmark_flight: bool, load_bookmarks: bool):
+                 open_details: bool, bookmark_flight: bool, load_bookmarks: bool, 
+                 measure_startup: bool):
         self.package = package
         self.n = n
         self.profile = profile
@@ -14,22 +15,23 @@ class BenchmarkConfig:
         self.open_details = open_details
         self.bookmark_flight = bookmark_flight
         self.load_bookmarks = load_bookmarks
+        self.measure_startup = measure_startup
 
 def __load_flights(config: BenchmarkConfig):
     for _ in range(config.n):
-        load_flights(package=config.package, profile=config.profile)
+        load_flights(package=config.package, profile=config.profile, measure_startup=config.measure_startup)
 
 def __open_details(config: BenchmarkConfig):
     for _ in range(config.n):
-        open_details(package=config.package, profile=config.profile)
+        open_details(package=config.package, profile=config.profile, measure_startup=config.measure_startup)
 
 def __bookmark_flight(config: BenchmarkConfig):
     for _ in range(config.n):
-        bookmark_flight(package=config.package, profile=config.profile)
+        bookmark_flight(package=config.package, profile=config.profile, measure_startup=config.measure_startup)
 
 def __load_bookmarks(config: BenchmarkConfig):
     for _ in range(config.n):
-        load_bookmarks(package=config.package, profile=config.profile)
+        load_bookmarks(package=config.package, profile=config.profile, measure_startup=config.measure_startup)
 
 def run_benchmark(config: BenchmarkConfig):
     stop_app(config.package)
