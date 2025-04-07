@@ -1,5 +1,6 @@
 import threading
 import time
+from metrics.battery import measure_battery
 from metrics.cpu_usage import measure_cpu_usage
 from metrics.memory_usage import measure_memory_usage
 
@@ -17,6 +18,7 @@ def measure_performance(config: MeasureConfig):
     while not __STOP.is_set():
         if config.measure_cpu: measure_cpu_usage(config.package)
         if config.measure_memory: measure_memory_usage(config.package)
+        if config.measure_battery: measure_battery()
         time.sleep(2)
 
 def stop_measuring():
