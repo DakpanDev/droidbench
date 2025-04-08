@@ -36,7 +36,7 @@ def measure_performance(config: MeasureConfig):
         else:
             if __trigger_framerate_measure.is_set():
                 __trigger_framerate_measure.clear()
-                p_50, p_90, p_95, p_99, p_gpu_50, p_gpu_90, p_gpu_95, p_gpu_99 = measure_framerate(config.package)
+                framerates = measure_framerate(config.package)
             if __trigger_startup_measure.is_set():
                 __trigger_startup_measure.clear()
                 startup_time = fetch_startup_time()
