@@ -16,6 +16,7 @@ __arguments = {
     'battery': False,           # Measure battery drain
     'framerate': False,         # Measure framerate
     'startup': False,           # Measure startup time
+    'app_size': False,          # Measure app size
 }
 
 def parse_parameters(args: list[str]) -> dict:
@@ -57,4 +58,5 @@ def create_measure_config(args: dict) -> MeasureConfig:
         measure_cpu=args['cpu'],
         measure_memory=args['memory'],
         measure_battery=args['battery'],
+        measure_app_size=args['app_size'],
     )

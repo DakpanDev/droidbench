@@ -1,5 +1,6 @@
 import threading
 import time
+from metrics.app_size import measure_app_size
 from metrics.battery import measure_battery
 from metrics.cpu_usage import measure_cpu_usage
 from metrics.framerate import measure_framerate
@@ -13,11 +14,12 @@ __trigger_startup_measure = threading.Event()
 
 class MeasureConfig:
     def __init__(self, package: str, measure_cpu: bool, measure_memory: bool, 
-                 measure_battery: bool):
+                 measure_battery: bool, measure_app_size: bool):
         self.package = package
         self.measure_cpu = measure_cpu
         self.measure_memory = measure_memory
         self.measure_battery = measure_battery
+        self.measure_app_size = measure_app_size
 
 def measure_performance(config: MeasureConfig):
     last_measure_time = time.time()
@@ -38,6 +40,7 @@ def measure_performance(config: MeasureConfig):
             if __trigger_startup_measure.is_set():
                 __trigger_startup_measure.clear()
                 startup_time = fetch_startup_time()
+    app_size = measure_app_size(config.package)
 
 def finish():
     __finished.set()
