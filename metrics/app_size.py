@@ -5,9 +5,9 @@ __OUTPUT_APP_SIZES = '"App Sizes"'
 __OUTPUT_DATA_SIZES = '"App Data Sizes"'
 __OUTPUT_CACHE_SIZES = '"Cache Sizes"'
 
-__KEY_APP_SIZE = 'app_size'
-__KEY_DATA_SIZE = 'data_size'
-__KEY_CACHE_SIZE = 'cache_size'
+KEY_APP_SIZE = 'app_size'
+KEY_DATA_SIZE = 'data_size'
+KEY_CACHE_SIZE = 'cache_size'
 
 def __diskstats_to_dict(stats: str, package: str) -> dict | None:
     lists_as_strings = [x.split(': ')[1] for x in stats]
@@ -15,9 +15,9 @@ def __diskstats_to_dict(stats: str, package: str) -> dict | None:
     if len(actual_lists) == 4:
         package_index = actual_lists[0].index(f'"{package}"')
         return {
-            __KEY_APP_SIZE: int(actual_lists[1][package_index]),
-            __KEY_DATA_SIZE: int(actual_lists[2][package_index]),
-            __KEY_CACHE_SIZE: int(actual_lists[3][package_index]),
+            KEY_APP_SIZE: int(actual_lists[1][package_index]),
+            KEY_DATA_SIZE: int(actual_lists[2][package_index]),
+            KEY_CACHE_SIZE: int(actual_lists[3][package_index]),
         }
     else:
         return None
