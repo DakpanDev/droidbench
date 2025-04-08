@@ -24,7 +24,7 @@ def measure_framerate(package: str) -> dict | None:
         'p_99': percentiles[3],
     }
 
-    if len(percentiles == 8):
+    if len(percentiles) == 8:
         framerates['p_gpu_50'] = percentiles[4]
         framerates['p_gpu_90'] = percentiles[5]
         framerates['p_gpu_95'] = percentiles[6]
