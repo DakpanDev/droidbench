@@ -28,7 +28,7 @@ def __load_flights(config: BenchmarkConfig):
         if config.measure_framerate: trigger_framerate_measure()
         if config.measure_startup: trigger_startup_measure()
         complete_measuring()
-        time.sleep(0.5)
+        time.sleep(1)
         stop_app(config.package)
         print()
 
@@ -41,7 +41,7 @@ def __open_details(config: BenchmarkConfig):
         if config.measure_framerate: trigger_framerate_measure()
         if config.measure_startup: trigger_startup_measure()
         complete_measuring()
-        time.sleep(0.5)
+        time.sleep(1)
         stop_app(config.package)
         print()
 
@@ -54,7 +54,7 @@ def __bookmark_flight(config: BenchmarkConfig):
         if config.measure_framerate: trigger_framerate_measure()
         if config.measure_startup: trigger_startup_measure()
         complete_measuring()
-        time.sleep(0.5)
+        time.sleep(1)
         stop_app(config.package)
         print()
 
@@ -67,7 +67,7 @@ def __load_bookmarks(config: BenchmarkConfig):
         if config.measure_framerate: trigger_framerate_measure()
         if config.measure_startup: trigger_startup_measure()
         complete_measuring()
-        time.sleep(0.5)
+        time.sleep(1)
         stop_app(config.package)
         print()
 

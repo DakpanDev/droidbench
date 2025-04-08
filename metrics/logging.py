@@ -12,16 +12,16 @@ def log_battery_charge(battery_charge: int | None):
 def log_framerates(framerates: dict | None):
     if framerates != None: 
         output = ('Overall Framerates:' + 
-                  f'\n\t50th Percentile: {framerates['p_50']} FPS' + 
-                  f'\n\t90th Percentile: {framerates['p_90']} FPS' + 
-                  f'\n\t95th Percentile: {framerates['p_95']} FPS' + 
-                  f'\n\t99th Percentile: {framerates['p_99']} FPS')
+                  f'\n\t50th Percentile: {framerates['p_50']}ms' + 
+                  f'\n\t90th Percentile: {framerates['p_90']}ms' + 
+                  f'\n\t95th Percentile: {framerates['p_95']}ms' + 
+                  f'\n\t99th Percentile: {framerates['p_99']}ms')
         if len(framerates) == 8:
             output += ('\nGraphical Framerate:' + 
-                  f'\n\t50th Percentile: {framerates['p_gpu_50']} FPS' + 
-                  f'\n\t90th Percentile: {framerates['p_gpu_90']} FPS' + 
-                  f'\n\t95th Percentile: {framerates['p_gpu_95']} FPS' + 
-                  f'\n\t99th Percentile: {framerates['p_gpu_99']} FPS')
+                  f'\n\t50th Percentile: {framerates['p_gpu_50']}ms' + 
+                  f'\n\t90th Percentile: {framerates['p_gpu_90']}ms' + 
+                  f'\n\t95th Percentile: {framerates['p_gpu_95']}ms' + 
+                  f'\n\t99th Percentile: {framerates['p_gpu_99']}ms')
         print(output)
 
 def log_startup_time(startup_time: int | None):
