@@ -1,7 +1,7 @@
 import sys
 import threading
 from benchmark import run_benchmark
-from measure_performance import measure_performance, stop_measuring
+from measure_performance import measure_performance, finish, complete_measuring
 from utils import parse_parameters, create_benchmark_config, create_measure_config
 
 def main(args: dict):
@@ -10,11 +10,12 @@ def main(args: dict):
     bench_process = threading.Thread(target=run_benchmark, args=(benchmark_config,))
     measure_process = threading.Thread(target=measure_performance, args=(measure_config,))
 
+    complete_measuring()
     measure_process.start()
     bench_process.start()
 
     bench_process.join()
-    stop_measuring()
+    finish()
     measure_process.join()
 
 if __name__ == '__main__':

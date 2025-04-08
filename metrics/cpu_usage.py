@@ -4,7 +4,7 @@ __TOP_PACKAGE_LENGTH = 15
 __CPU_INDEX = 8
 __INCORRECT_LENGTH = 13
 
-def measure_cpu_usage(package: str):
+def measure_cpu_usage(package: str) -> float | None:
     cpu_package = package[:__TOP_PACKAGE_LENGTH] + '+'
     stream = os.popen(f'adb shell top -n 1 | grep {cpu_package}')
     res_values = stream.read().split(' ')
@@ -12,6 +12,4 @@ def measure_cpu_usage(package: str):
     if len(res_values) == __INCORRECT_LENGTH: 
         res_values = res_values[1:]
 
-    if len(res_values) >= __CPU_INDEX + 1:
-        # TODO: place into CSV
-        print(f'CPU Usage (%): {res_values[__CPU_INDEX]}')
+    return float(res_values[__CPU_INDEX]) if len(res_values) >= __CPU_INDEX + 1 else None
