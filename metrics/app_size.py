@@ -22,7 +22,7 @@ def __diskstats_to_dict(stats: str, package: str) -> dict | None:
     else:
         return None
 
-def measure_app_size(package: str) -> dict:
+def measure_app_size(package: str) -> dict | None:
     stream = os.popen(f'adb shell dumpsys diskstats | grep -e {__OUTPUT_PACKAGE_NAMES} ' +
                       f'-e {__OUTPUT_APP_SIZES} -e {__OUTPUT_DATA_SIZES} -e {__OUTPUT_CACHE_SIZES}')
     output = stream.read().splitlines()

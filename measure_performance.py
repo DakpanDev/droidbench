@@ -7,6 +7,7 @@ from metrics.framerate import measure_framerate
 from metrics.logging import *
 from metrics.memory_usage import measure_memory_usage
 from metrics.startup_time import fetch_startup_time
+from save_results import save_benchmark_results
 
 __finished = threading.Event()
 __measure = threading.Event()
@@ -23,6 +24,7 @@ class MeasureConfig:
         self.measure_app_size = measure_app_size
 
 def measure_performance(config: MeasureConfig):
+    start_measure_time = time.time()
     cpu_measurements = []
     memory_measurements = []
     battery_measurements = []
@@ -32,32 +34,38 @@ def measure_performance(config: MeasureConfig):
     while not __finished.is_set():
         if __measure.is_set():
             if time.time() - last_measure_time < 2: continue
+            time_of_measure = time.time() - start_measure_time
             if config.measure_cpu: 
                 cpu_usage = measure_cpu_usage(config.package)
-                cpu_measurements.append(cpu_usage)
+                if cpu_usage != None:
+                    cpu_measurements.append((time_of_measure, cpu_usage))
                 log_cpu_usage(cpu_usage)
             if config.measure_memory: 
                 memory_usage = measure_memory_usage(config.package)
-                memory_measurements.append(memory_usage)
+                if memory_measurements != None: 
+                    memory_measurements.append((time_of_measure, memory_usage))
                 log_memory_usage(memory_usage)
             if config.measure_battery: 
                 battery_charge = measure_battery()
-                battery_measurements.append(battery_charge)
+                if battery_charge != None: 
+                    battery_measurements.append((time_of_measure, battery_charge))
                 log_battery_charge(battery_charge)
             last_measure_time = time.time()
         else:
             if __trigger_framerate_measure.is_set():
                 __trigger_framerate_measure.clear()
                 framerates = measure_framerate(config.package)
-                framerate_measurements.append(framerates)
+                if framerates != None: framerate_measurements.append(framerates)
                 log_framerates(framerates)
             if __trigger_startup_measure.is_set():
                 __trigger_startup_measure.clear()
                 startup_time = fetch_startup_time()
-                startup_measurements.append(startup_time)
+                if startup_time != None: startup_measurements.append(startup_time)
                 log_startup_time(startup_time)
     app_size = measure_app_size(config.package)
     log_app_size(app_size)
+    save_benchmark_results(config.package, app_size, startup_measurements, cpu_measurements,
+                           memory_measurements, battery_measurements, framerate_measurements)
 
 def finish():
     __finished.set()
