@@ -11,18 +11,18 @@ def execute(config: BenchmarkConfig):
 
     # Scroll down (6x)
     for _ in range(6): 
-        do_action(actions['scroll_down'])
+        do_action(actions['scroll_down'], platform=config.platform)
         time.sleep(1)
 
     # Select random day
-    do_action(actions['calendar'])
+    do_action(actions['calendar'], platform=config.platform)
     time.sleep(0.5)
-    do_action(actions['calendar_random_day'])
+    do_action(actions['calendar_random_day'], platform=config.platform)
     time.sleep(0.5)
-    do_action(actions['calendar_confirm'])
+    do_action(actions['calendar_confirm'], platform=config.platform)
     time.sleep(0.5)
 
     # Scroll down (6x)
     for _ in range(6): 
-        do_action(actions['scroll_down'])
+        do_action(actions['scroll_down'], platform=config.platform)
         time.sleep(1)

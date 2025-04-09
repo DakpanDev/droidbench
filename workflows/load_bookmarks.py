@@ -10,5 +10,5 @@ def execute(config: BenchmarkConfig):
     time.sleep(5)
 
     # Open bookmarks
-    do_action(actions['bottombar_bookmarks'])
+    do_action(actions['bottombar_bookmarks'], platform=config.platform)
     time.sleep(2.5)

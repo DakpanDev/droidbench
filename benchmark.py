@@ -16,7 +16,7 @@ def __load_flights(config: BenchmarkConfig):
         if config.measure_startup: trigger_startup_measure()
         complete_measuring()
         time.sleep(1)
-        stop_app(config.package)
+        stop_app(config.platform, config.package)
         print()
 
 def __open_details(config: BenchmarkConfig):
@@ -29,7 +29,7 @@ def __open_details(config: BenchmarkConfig):
         if config.measure_startup: trigger_startup_measure()
         complete_measuring()
         time.sleep(1)
-        stop_app(config.package)
+        stop_app(config.platform, config.package)
         print()
 
 def __bookmark_flight(config: BenchmarkConfig):
@@ -42,7 +42,7 @@ def __bookmark_flight(config: BenchmarkConfig):
         if config.measure_startup: trigger_startup_measure()
         complete_measuring()
         time.sleep(1)
-        stop_app(config.package)
+        stop_app(config.platform, config.package)
         print()
 
 def __load_bookmarks(config: BenchmarkConfig):
@@ -55,11 +55,11 @@ def __load_bookmarks(config: BenchmarkConfig):
         if config.measure_startup: trigger_startup_measure()
         complete_measuring()
         time.sleep(1)
-        stop_app(config.package)
+        stop_app(config.platform, config.package)
         print()
 
 def run_benchmark(config: BenchmarkConfig):
-    stop_app(config.package)
+    stop_app(config.platform, config.package)
     if config.load_flights: __load_flights(config)
     if config.open_details: __open_details(config)
     if config.bookmark_flight: __bookmark_flight(config)

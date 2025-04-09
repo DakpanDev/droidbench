@@ -11,9 +11,9 @@ def execute(config: BenchmarkConfig):
 
     for n in range(4):
         # Click nth flight
-        do_action(actions[f'flight_{n}'])
+        do_action(actions[f'flight_{n}'], platform=config.platform)
         time.sleep(0.75)
 
         # Navigate back
-        do_action(actions['details_back'])
+        do_action(actions['details_back'], platform=config.platform)
         time.sleep(0.75)
