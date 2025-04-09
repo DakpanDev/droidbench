@@ -1,4 +1,5 @@
 import os
+from utils import PLATFORM_ANDROID, PLATFORM_IOS
 
 FIELD_OVERALL_P50 = 'p_50'
 FIELD_OVERALL_P90 = 'p_90'
@@ -15,7 +16,7 @@ __PERCENTILE = 'percentile'
 def __extract_ms(input: str) -> int:
     return int(input.split(': ')[1].replace('ms', ''))
 
-def measure_framerate(package: str) -> dict | None:
+def __measure_framerate_android(package: str) -> dict | None:
     stream = os.popen(f'adb shell dumpsys gfxinfo {package} | grep {__PERCENTILE}')
     output = filter(lambda x: len(x) > 0, stream.read().split('\n'))
     percentiles = list(map(__extract_ms, output))
@@ -37,3 +38,11 @@ def measure_framerate(package: str) -> dict | None:
         framerates[FIELD_GPU_P99] = percentiles[7]
 
     return framerates
+
+def __measure_framerate_ios(package: str) -> dict | None:
+    # TODO
+    pass
+
+def measure_framerate(platform: str, package: str) -> dict | None:
+    if platform == PLATFORM_ANDROID: return __measure_framerate_android(package)
+    if platform == PLATFORM_IOS: return __measure_framerate_ios(package)

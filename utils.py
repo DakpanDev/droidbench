@@ -1,10 +1,14 @@
 import json
-from benchmark import BenchmarkConfig
-from measure_performance import MeasureConfig
+from config.benchmark_config import BenchmarkConfig
+from config.measure_config import MeasureConfig
+
+PLATFORM_ANDROID = 'android'
+PLATFORM_IOS = 'ios'
 
 __arguments = {
     'd': None,                  # Device name
     'p': None,                  # Package
+    'o': PLATFORM_ANDROID,       # Platform
     'n': '1',                   # Iteration amount
     'load_flights': False,      # Do load_flights benchmark
     'open_details': False,      # Do open_details benchmark
@@ -41,6 +45,7 @@ def create_benchmark_config(args: dict) -> BenchmarkConfig:
         profile = get_profile(profiles, args['d'])
 
     return BenchmarkConfig(
+        platform=args['o'],
         package=args['p'], 
         n=int(args['n']),
         profile=profile,
@@ -54,6 +59,7 @@ def create_benchmark_config(args: dict) -> BenchmarkConfig:
 
 def create_measure_config(args: dict) -> MeasureConfig:
     return MeasureConfig(
+        platform=args['o'],
         package=args['p'],
         measure_cpu=args['cpu'],
         measure_memory=args['memory'],

@@ -6,10 +6,12 @@ def stop_app(package: str):
     os.popen(f'adb shell am force-stop {package}')
     time.sleep(1)
 
-def start_app(package: str, measure: bool=False):
+def start_app(package: str, platform: str, measure: bool=False):
+    start_time = time.time()
     stream = os.popen(f'adb shell am start{' -W' if measure else ''} -n {package}/.MainActivity')
+    end_time = time.time()
     if measure:
-        measure_startup_time(stream)
+        measure_startup_time(platform, stream, end_time - start_time)
 
 def tap(coords: dict):
     os.popen(f'adb shell input tap {coords['x']} {coords['y']}')

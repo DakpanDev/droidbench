@@ -1,4 +1,5 @@
 import os
+from utils import PLATFORM_ANDROID, PLATFORM_IOS
 
 __OUTPUT_PACKAGE_NAMES = '"Package Names"'
 __OUTPUT_APP_SIZES = '"App Sizes"'
@@ -22,8 +23,16 @@ def __diskstats_to_dict(stats: str, package: str) -> dict | None:
     else:
         return None
 
-def measure_app_size(package: str) -> dict | None:
+def __measure_app_size_android(package: str) -> dict | None:
     stream = os.popen(f'adb shell dumpsys diskstats | grep -e {__OUTPUT_PACKAGE_NAMES} ' +
                       f'-e {__OUTPUT_APP_SIZES} -e {__OUTPUT_DATA_SIZES} -e {__OUTPUT_CACHE_SIZES}')
     output = stream.read().splitlines()
     return __diskstats_to_dict(stats=output, package=package)
+
+def __measure_app_size_ios(package: str) -> dict | None:
+    # TODO
+    pass
+
+def measure_app_size(platform: str, package: str) -> dict | None:
+    if platform == PLATFORM_ANDROID: return __measure_app_size_android(package)
+    if platform == PLATFORM_IOS: return __measure_app_size_ios(package)
