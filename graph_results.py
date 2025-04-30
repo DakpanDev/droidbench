@@ -101,9 +101,9 @@ def __plot_framerate():
     regular_path = create_path(__REGULAR_PACKAGE)
     shared_path = create_path(__SHARED_PACKAGE)
     regular_overall_percentiles, regular_gpu_percentiles = __read_framerate(regular_path, __REGULAR_VERSION)
-    shared_overall_percentiles, regular_gpu_percentiles = __read_framerate(shared_path, __SHARED_VERSION)
+    shared_overall_percentiles, shared_gpu_percentiles = __read_framerate(shared_path, __SHARED_VERSION)
     plot_percentile_barchart([regular_overall_percentiles, shared_overall_percentiles], 'Overall Framerate (ms)')
-    plot_percentile_barchart([regular_gpu_percentiles, regular_gpu_percentiles], 'GPU Framerate (ms)')
+    plot_percentile_barchart([regular_gpu_percentiles, shared_gpu_percentiles], 'GPU Framerate (ms)')
 
 def __read_boxplot(path: str, filename: str, fieldname: str, title: str) -> list[int] | None:
     try:
