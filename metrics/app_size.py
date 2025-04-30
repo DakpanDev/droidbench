@@ -6,9 +6,9 @@ __OUTPUT_APP_SIZES = '"App Sizes"'
 __OUTPUT_DATA_SIZES = '"App Data Sizes"'
 __OUTPUT_CACHE_SIZES = '"Cache Sizes"'
 
-KEY_APP_SIZE = 'app_size'
-KEY_DATA_SIZE = 'data_size'
-KEY_CACHE_SIZE = 'cache_size'
+KEY_APP_SIZE = 'App Size'
+KEY_DATA_SIZE = 'Data Size'
+KEY_CACHE_SIZE = 'Cache Size'
 
 def __diskstats_to_dict(stats: str, package: str) -> dict | None:
     lists_as_strings = [x.split(': ')[1] for x in stats]
