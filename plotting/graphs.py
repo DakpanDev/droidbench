@@ -37,7 +37,7 @@ def plot_piechart(pies: list[PieChart]):
     _, axes = plt.subplots(1, 2)
     for index, pie in enumerate(pies):
         wedges, _ = axes[index].pie(pie.values)
-        axes[index].set_title(pie.title)
+        axes[index].set_title(f'{pie.title}\n({sum(pie.values):.3F}MB)')
         legend_labels = [f'{label}: {size:.2f}MB' for label, size in zip(pie.labels, pie.values)]
         axes[index].legend(wedges, legend_labels, loc='lower left')
     plt.tight_layout()
