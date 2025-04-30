@@ -2,59 +2,60 @@ import csv
 import json
 import matplotlib.pyplot as plt
 import numpy as np
-from save_results import TIME_OF_MEASURING_FIELDNAME, FRAMERATE_OVERALL_FIELDNAMES
+from save_results import FRAMERATE_OVERALL_FIELDNAMES
 
+class LinePlot:
+    def __init__(self, x_axis: list, y_axis: list, x_label: str, y_label: str, title: str):
+        self.x_axis = x_axis
+        self.y_axis = y_axis
+        self.x_label = x_label
+        self.y_label = y_label
+        self.title = title
 
-def plot_against_time(path: str, filename: str, y_field: str, title: str):
-    with open(f'{path}/{filename}', mode='r') as file:
-        reader = csv.DictReader(file)
-        time_axis = []
-        y_axis = []
-        for row in reader:
-            time_axis.append(float(row[TIME_OF_MEASURING_FIELDNAME]))
-            y_axis.append(float(row[y_field]))
+def plot_against_time(plots: list[LinePlot], title: str):
+    start = min([int(np.floor(min(plot.x_axis))) for plot in plots])
+    end = max([int(np.ceil(max(plot.x_axis))) for plot in plots])
+    step_size = int(end / 15)
 
-        start = int(np.floor(min(time_axis)))
-        end = int(np.ceil(max(time_axis)))
-        step_size = int(end / 15)
+    for plot in plots:
+        plt.plot(plot.x_axis, plot.y_axis, markersize=2, label=plot.title)
+    plt.xticks(np.arange(start, end + 1, step_size))
+    plt.xlabel('Time (s)')
+    plt.ylabel(plots[0].y_label)
+    plt.title(title)
+    plt.grid(True)
+    plt.legend()
+    plt.show()
 
-        plt.plot(time_axis, y_axis, markersize=2)
-        plt.xticks(np.arange(start, end + 1, step_size))
-        plt.xlabel('Time (s)')
-        plt.ylabel(y_field)
-        plt.title(title)
-        plt.grid(True)
-        plt.show()
+class PieChart:
+    def __init__(self, values: list, labels: str, title: str):
+        self.values = values
+        self.labels = labels
+        self.title = title
 
-def plot_piechart(path: str, filename: str):
-    with open(f'{path}/{filename}', mode='r') as file:
-        data: dict = json.load(file)
-        labels = list(data.keys())
-        sizes = list(data.values())
-        sizes_mb = [size/(1024*1024) for size in sizes]
+def plot_piechart(pies: list[PieChart]):
+    _, axes = plt.subplots(1, 2)
+    for index, pie in enumerate(pies):
+        wedges, _ = axes[index].pie(pie.values)
+        axes[index].set_title(pie.title)
+        legend_labels = [f'{label}: {size:.2f}MB' for label, size in zip(pie.labels, pie.values)]
+        axes[index].legend(wedges, legend_labels, loc='lower left')
+    plt.tight_layout()
+    plt.show()
 
-        legend_labels = [f'{label}: {size:.2f}MB' for label, size in zip(labels, sizes_mb)]
+class BoxPlot:
+    def __init__(self, values: list, title: str):
+        self.values = values
+        self.title = title
 
-        wedges, _, _ = plt.pie(
-            sizes_mb,
-            labels=labels,
-            autopct='%1.1f%%',
-        )
-        plt.title('Occupied Storage')
-        plt.legend(wedges, legend_labels, title='Legend', loc='lower left')
-        plt.axis('equal')
-        plt.tight_layout()
-        plt.show()
-
-def plot_regular_boxplot(path: str, filename: str, fieldname: str):
-    with open(f'{path}/{filename}', mode='r') as file:
-        reader = csv.DictReader(file)
-        values = [int(row[fieldname]) for row in reader]
-        plt.boxplot(values, vert=True, patch_artist=True)
-        plt.title(fieldname)
-        plt.grid(True)
-        plt.tight_layout()
-        plt.show()
+def plot_regular_boxplot(plots: list[BoxPlot], y_label: str):
+    values = [plot.values for plot in plots]
+    labels = [plot.title for plot in plots]
+    plt.boxplot(values, vert=True, patch_artist=True, labels=labels)
+    plt.title(y_label)
+    plt.grid(True)
+    plt.tight_layout()
+    plt.show()
 
 class Percentiles:
     def __init__(self, p50: float, p90: float, p95: float, p99: float, label: str):
